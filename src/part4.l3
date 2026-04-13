@@ -1,0 +1,25 @@
+(define last-item
+  (λ (lst)
+    (if (null? (cdr lst))
+        (car lst)
+        (last-item (cdr lst)))))
+
+(define remove-last-item
+  (λ (lst)
+    (if (null? (cdr lst))
+        '()
+        (cons (car lst) (remove-last-item (cdr lst))))))
+
+(define rotate-nth
+  (λ (lst n)
+    (if (= n 0)
+        lst
+        (rotate-nth (cons (last-item lst) (remove-last-item lst)) (- n 1)))))
+
+(define deep-reverse
+  (λ (lst)
+    (if (null? lst)
+        '()
+        (if (list? (car lst))
+            (append (deep-reverse (cdr lst)) (list (deep-reverse (car lst))))
+            (append (deep-reverse (cdr lst)) (list (car lst)))))))
